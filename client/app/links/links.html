@@ -1,3 +1,19 @@
-<div id='container'>
-  <!-- Your html here -->
+<div class="navigation">
+  <ul>
+    <li><a href="#/links" class="index"  ng-class="{selected: (data.path === '/links')}">All Links</a></li>
+    <li><a href="#/shorten" class="create" ng-class="{selected: (data.path === '/shorten')}">Shorten</a></li>
+  </ul>
+  </div>
+<div id="container">
+  <div class="links">
+    <div class="link" ng-repeat="link in data.links">
+      <img src="assets/redirect_icon.png">
+      <div class="info">
+        <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>
+        <div class='title'>{{link.title}}</div>
+        <div class='original'>{{link.url}}</div>
+        <a href='{{link.base_url}}/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,6 +1,24 @@
-<div id='container'>
-<!-- Your code here -->
-
+<div class="navigation">
+  <ul>
+    <li><a href="#/links" class="index"  ng-class="{selected:(data.path === '/links')}">All Links</a></li>
+    <li><a href="#/shorten" class="create" ng-class="{selected: (data.path === '/shorten')}">Shorten</a></li>
+  </ul>
+  </div>
+<div id="container"><div class="creator">
+  <form _lpchecked="1">
+      <input class="text" type="text" name="url" ng-model="link.url" style="display:inline;">
+      <input type="submit" value="Shorten" ng-click="addLink()" >
+  </form>
+  <img class="spinner" src="assets/spiffygif_46x46.gif" style="disaddplay: none;">
+  <div class="message" ng-if="link.base_url && link.base_url.length > 0"><div class="link" style="display: block;">
+    <img src="assets/redirect_icon.png">
+    <div class="info">
+      <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>
+      <div class='title'>{{link.title}}</div>
+      <div class='original'>{{link.url}}</div>
+      <a href='{{link.base_url}}/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
+    </div>
+  </div>
 </div>
 
 
