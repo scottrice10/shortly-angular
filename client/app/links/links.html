@@ -3,10 +3,15 @@
     <li><a href="#/links" class="index"  ng-class="{selected: (data.path === '/links')}">All Links</a></li>
     <li><a href="#/shorten" class="create" ng-class="{selected: (data.path === '/shorten')}">Shorten</a></li>
   </ul>
-  </div>
+</div>
+
+<div id="container">
+  <input class="text" type="text" name="search" ng-model="search" style="display:inline;">
+</div>
+
 <div id="container">
   <div class="links">
-    <div class="link" ng-repeat="link in data.links">
+    <div class="link" ng-repeat="link in data.links | filter:search | orderBy : link.visits">
       <img src="assets/redirect_icon.png">
       <div class="info">
         <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>

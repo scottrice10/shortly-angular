@@ -53,7 +53,6 @@ angular.module('shortly.services', [])
       $location.path('/signin');
     };
 
-
     return {
       signin: signin,
       signup: signup,

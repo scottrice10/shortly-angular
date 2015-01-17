@@ -1,15 +1,17 @@
 var User = require('./userModel.js'),
-    Q    = require('q'),
-    jwt  = require('jwt-simple');
+  Q = require('q'),
+  jwt = require('jwt-simple');
 
 module.exports = {
-  signin: function (req, res, next) {
+  signin: function(req, res, next) {
     var username = req.body.username,
-        password = req.body.password;
+      password = req.body.password;
 
     var findUser = Q.nbind(User.findOne, User);
-    findUser({username: username})
-      .then(function (user) {
+    findUser({
+        username: username
+      })
+      .then(function(user) {
         if (!user) {
           next(new Error('User does not exist'));
         } else {
@@ -17,33 +19,39 @@ module.exports = {
             .then(function(foundUser) {
               if (foundUser) {
                 var token = jwt.encode(user, 'secret');
-                res.json({token: token});
+                res.json({
+                  token: token
+                });
               } else {
                 return next(new Error('No user'));
               }
             });
         }
       })
-      .fail(function (error) {
+      .fail(function(error) {
         next(error);
       });
   },
 
-  signup: function (req, res, next) {
-    var username  = req.body.username,
-        password  = req.body.password,
-        create,
-        newUser;
+  signup: function(req, res, next) {
+    console.log("User reached")
+    var username = req.body.username,
+      password = req.body.password,
+      create,
+      newUser;
 
     var findOne = Q.nbind(User.findOne, User);
 
     // check to see if user already exists
-    findOne({username: username})
+    findOne({
+        username: username
+      })
       .then(function(user) {
         if (user) {
           next(new Error('User already exist!'));
         } else {
-          // make a new user if not one
+          console.log("user created")
+            // make a new user if not one
           create = Q.nbind(User.create, User);
           newUser = {
             username: username,
@@ -52,17 +60,20 @@ module.exports = {
           return create(newUser);
         }
       })
-      .then(function (user) {
+      .then(function(user) {
         // create token to send back for auth
+        console.log("auth token created")
         var token = jwt.encode(user, 'secret');
-        res.json({token: token});
+        res.json({
+          token: token
+        });
       })
-      .fail(function (error) {
+      .fail(function(error) {
         next(error);
       });
   },
 
-  checkAuth: function (req, res, next) {
+  checkAuth: function(req, res, next) {
     // checking to see if the user is authenticated
     // grab the token in the header is any
     // then decode the token, which we end up being the user object
@@ -73,15 +84,17 @@ module.exports = {
     } else {
       var user = jwt.decode(token, 'secret');
       var findUser = Q.nbind(User.findOne, User);
-      findUser({username: user.username})
-        .then(function (foundUser) {
+      findUser({
+          username: user.username
+        })
+        .then(function(foundUser) {
           if (foundUser) {
             res.send(200);
           } else {
             res.send(401);
           }
         })
-        .fail(function (error) {
+        .fail(function(error) {
           next(error);
         });
     }

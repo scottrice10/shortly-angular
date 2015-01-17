@@ -25,7 +25,7 @@ angular.module('shortly', [
       });
 
     $routeProvider.otherwise({
-      redirectTo: "/links"
+      redirectTo: "/signin"
     });
 
     // $locationProvider.html5Mode(true);
@@ -60,7 +60,7 @@ angular.module('shortly', [
     // and send that token to the server to see if it is a real user or hasn't expired
     // if it's not valid, we then redirect back to signin/signup
     $rootScope.$on('$routeChangeStart', function(evt, next, current) {
-      if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
+      if (next.$$route && $location.path() !== '/signup' && !Auth.isAuth()) {
         $location.path('/signin');
       }
     });
