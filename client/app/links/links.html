@@ -6,7 +6,7 @@
 </div>
 
 <div id="container">
-  <input class="text" type="text" name="search" ng-model="search" style="display:inline;">
+  <input class="text" type="text" name="search" ng-model="search" style="display:inline;margin-left:15px;" placeholder="Search a link">
 </div>
 
 <div id="container">
@@ -17,7 +17,7 @@
         <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>
         <div class='title'>{{link.title}}</div>
         <div class='original'>{{link.url}}</div>
-        <a href='{{link.base_url}}/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
+        <a href='{{link.base_url}}/api/links/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
       </div>
     </div>
   </div>
