@@ -1,35 +1,58 @@
 angular.module('shortly', [
     'shortly.services',
+    'shortly.nav',
     'shortly.links',
     'shortly.shorten',
     'shortly.auth',
-    'ngRoute'
+    'ui.router',
+    'ui.router.stateHelper'
   ])
-  .config(function($routeProvider, $httpProvider, $locationProvider) {
-    $routeProvider
-      .when('/signin', {
+  .config(function($stateProvider, $httpProvider, $urlRouterProvider, stateHelperProvider) {
+    //  stateHelperProvider.setNestedState({
+    //   name: 'nav',
+    //   templateUrl: 'nav.html',
+    //   children: [
+    //     {
+    //       name: 'shorten',
+    //       templateUrl: 'shorten.html'
+    //     },
+    //     {
+    //       name: 'links',
+    //       templateUrl: 'links.html'
+    //     }
+    //   ]
+    // });
+
+    $stateProvider
+      .state('signin', {
+        url: '/signin',
         templateUrl: 'app/auth/signin.html',
         controller: 'AuthController'
       })
-      .when('/signup', {
+      .state('signup', {
+        url: '/signup',
         templateUrl: 'app/auth/signup.html',
         controller: 'AuthController'
       })
-      .when('/links', {
-        templateUrl: 'app/links/links.html',
+      .state('nav', {
+        abstract: true,
+        url: '/',
+        templateUrl: 'app/nav/nav.html',
+        controller: 'NavController'
+      })
+      .state('nav.links', {
+        url: 'links',
+        templateUrl: 'app/links/nav.links.html',
         controller: 'LinksController'
       })
-      .when('/shorten', {
-        templateUrl: 'app/shorten/shorten.html',
+      .state('nav.shorten', {
+        url: 'shorten',
+        templateUrl: 'app/shorten/nav.shorten.html',
         controller: 'ShortenController'
       });
 
-    $routeProvider.otherwise({
-      redirectTo: "/signin"
-    });
 
-    // $locationProvider.html5Mode(true);
-
+    $urlRouterProvider.otherwise("/signin");
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');

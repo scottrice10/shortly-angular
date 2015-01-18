@@ -1,0 +1,8 @@
+<div class="navigation">
+  <ul>
+    <li><a ui-sref="nav.links" class="index"  ng-class="{selected:(data.path === '/links')}">All Links</a></li>
+    <li><a ui-sref="nav.shorten" class="create" ng-class="{selected: (data.path === '/shorten')}">Shorten</a></li>
+  </ul>
+</div>
+
+<div ui-view></div>

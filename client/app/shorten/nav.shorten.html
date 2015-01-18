@@ -1,0 +1,18 @@
+<div id="container"><div class="creator">
+  <form name="shortenForm" ng-submit="addLink()">
+      <input class="text" type="url" name="url" ng-model="link.url" style="display:inline;" ng-class="{ 'has-error' : shortenForm.url.$invalid && !shortenForm.url.$pristine }">
+      <button>Shorten</button>
+  </form>
+  <img class="spinner" src="assets/spiffygif_46x46.gif" style="disaddplay: none;">
+  <div class="message" ng-if="link.base_url && link.base_url.length > 0"><div class="link" style="display: block;">
+    <img src="assets/redirect_icon.png">
+    <div class="info">
+      <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>
+      <div class='title'>{{link.title}}</div>
+      <div class='original'>{{link.url}}</div>
+      <a href='{{link.base_url}}/api/links/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
+    </div>
+  </div>
+</div>
+
+

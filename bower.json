@@ -13,6 +13,7 @@
     "angular": "~1.2.18",
     "angular-route": "~1.2.18",
     "angular-mocks": "~1.2.18",
-    "angular-ui-router": "*"
+    "angular-ui-router": "*",
+    "angular-ui-router.stateHelper" : "*"
   }
 }
